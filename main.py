@@ -23,16 +23,14 @@ def count_goods_by_country(db, tsv_file):
                               'GROUP BY NAME_COUNTRY'):
         country, count = row
         result.setdefault(country, count)
-
-
     with open(tsv_file, 'w') as f:
         for country, count in result.items():
             f.write(f"{country}\t{count}\n")
 
 if __name__ == '__main__':
     db = DataBase('base.sqlite')
-    # db.create_tables()
-    # process_xlsx('data.xlsx', db)
+    db.create_tables()
+    process_xlsx('data.xlsx', db)
     count_goods_by_country(db, 'data.tsv')
     db.close()
 
